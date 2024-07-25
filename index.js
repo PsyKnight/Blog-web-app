@@ -17,8 +17,15 @@ db.connect();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true}));
 
-app.get("/", (req, res) => {
-	res.render("index.ejs");
+app.get("/",async (req, res) => {
+const result = await db.query(
+	`SELECT *
+	FROM blogs
+	JOIN users
+	ON users.id = user_id`
+);
+	console.log(result.rows);
+	res.render("index.ejs",{ blogs: result.rows });
 })
 
 app.listen(port, () => {

@@ -20,15 +20,22 @@
 </div>
 
 <div class="container">
-	<%// blogs.forEach((blog) => {%>
+	<% if (locals.blogs) { %>
+	<% blogs.forEach((blog) => { %>
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<div class="col">
 			<div class="card h-100">
-				<img src="..." class="card-img-top" alt="...">
+				<img src="<%= blog.image %>" class="card-img-top" alt="thumbnail-image">
 				<div class="card-body">
-					<strong class="d-inline-block mb-2 text-primary-emphasis">World</strong>
-					<h5 class="card-title">Card title</h5>
-					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+					<strong class="d-inline-block mb-2 text-primary-emphasis"><%= blog.tags[0] %></strong>
+					<h5 class="card-title"><%= blog.title %></h5>
+					<p class="card-text">
+						<% if (blog.content.length > 300) { %>
+							<%= blog.content.substring(0, 300) + "..." %>
+						<% } else { %>
+							<%= blog.content %>
+						<% } %>
+					</p>
 				</div>
 				<div class="card-footer">
 					<small class="text-body-secondary">Last updated 3 mins ago</small>
@@ -36,7 +43,8 @@
 			</div>
 		</div>
 	</div>
-	<%// }); %>
+	<% }); %>
+	<% } %>
 </div>
 
 <%- include("./partials/footer.ejs") %>
